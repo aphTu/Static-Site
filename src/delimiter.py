@@ -1,6 +1,7 @@
 from htmlnode import *
 from textnode import *
 from collections import deque
+import copy
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
@@ -51,40 +52,58 @@ def split_inline_delimiter(old_nodes, delimiter = None):
        continue
     
 
-def parse_inline(text, delimiter):
-  ##! this entire thing is wrong, have to refix it, fucking ai giving me wrong implementation
-  # Recursive function that check the sentence for every delimiter it has
-  parsed = []
-  if not delimiter:
-    return [InlineNode(TextType.TEXT, content = text.content)]
-  
-  used_delimiter = delimiter[0]
-  remaining_delimiter = delimiter[1:]
-  splitted_text = text.content.split(used_delimiter[0])
-  # print(splitted_text)
-  if len(splitted_text)%2 == 0:
-      raise Exception("Markdown error, delimiter was not closed")
-  for i in range(0,len(splitted_text)):
-    if splitted_text[i] == "":
-      continue
-    if i %2 != 0:
-      # print(f"inside the i%2: {splitted_text}")
-      node = InlineNode(used_delimiter[1], children=parse_inline(InlineNode(TextType.TEXT, splitted_text[i]), remaining_delimiter))
-      parsed.extend([node])
-    else:
-      node = InlineNode(TextType.TEXT, content=splitted_text[i])
-      parsed.extend(parse_inline(node, remaining_delimiter))
-  return parsed
-  
-#* This function return earliest matching delimiters to split
-def find_outer_delimiters(text, delimiters):
-  ## delimiters is in this format:
-      # ("**", TextType.BOLD),
-      # ("_", TextType.ITALIC),
-      # ("`", TextType.CODE),
-  left_most = -1
-  right_most = -2
-    for delimiter in delimiters:
+def parse_inline(text, delimiters):
+  try:
+    # Recursive function that check the sentence for every delimiters it has
+    parsed = []
+    if not delimiters:
+      return [InlineNode(TextType.TEXT, content = text.content)]
+    used_delimiter = find_outer_delimiters(text.content, delimiters)
+    if used_delimiter is None:
+      return [InlineNode(TextType.TEXT, content = text.content)]
       
+    # print(f"used_delimiter:{used_delimiter}")
+    remaining_delimiter = copy.deepcopy(delimiters)
+    remaining_delimiter.remove(used_delimiter)
+    # print(f"remaining_delimiter:{remaining_delimiter}")
+    splitted_text = text.content.split(used_delimiter[0])
+    # print(splitted_text)
+    for i in range(0,len(splitted_text)):
+      if splitted_text[i] == "":
+        continue
+      if i %2 != 0:
+        # print(f"inside the i%2!=0: {splitted_text[i]}")
+        node = InlineNode(used_delimiter[1], children=parse_inline(InlineNode(TextType.TEXT, splitted_text[i]), remaining_delimiter))
+        parsed.extend([node])
+      else:
+        node = InlineNode(TextType.TEXT, content=splitted_text[i])
+        parsed.extend(parse_inline(node, remaining_delimiter))
+    return parsed
+  except ValueError as e:
+    raise Exception("Markdown error, delimiter was not closed")
+  
+#* This function return earliest matching delimiters to split, return None if there no matching delimiter to split
+def find_outer_delimiters(text, delimiters):
+ 
+  left_most = -1
+  right_most = -1
+  chosen_delimiter = None
+  for delimiter in delimiters:
+    # this get the first value of the set, which is the string for the delimiter
+    current_delimiter = delimiter[0]
+    if(current_delimiter not in text):
+      continue
+    temp_left = text.index(current_delimiter)
+    print(f"current_delimiter{current_delimiter}, temp_left: {temp_left}")
+    print(f"left_most: {left_most}")
+    print(f"text:{text}")
+
+    if left_most == -1 or left_most > temp_left:
+      left_most = temp_left
+      right_most = text.index(current_delimiter, left_most + 1)
+      # print(f"right_most:{right_most}")
+      # print(f"left_most: {left_most}")
+      chosen_delimiter = delimiter
+  return chosen_delimiter
       
     

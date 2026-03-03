@@ -15,8 +15,8 @@ def main():
       ("`", TextType.CODE),
     ]
 
-    text = "This is _italic and **bold** word_."
-    tree = parse_inline(text, delimiters)
+    node = InlineNode(TextType.TEXT, content="This is an _italic and **bold** word_")
+    tree = parse_inline(node, delimiters)
     print(tree)
 
 if __name__ == "__main__":
