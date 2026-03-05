@@ -1,6 +1,5 @@
-from htmlnode import *
-from textnode import *
-from collections import deque
+from src.utilities.htmlnode import *
+from src.utilities.textnode import *
 import copy
 
 
@@ -94,9 +93,9 @@ def find_outer_delimiters(text, delimiters):
     if(current_delimiter not in text):
       continue
     temp_left = text.index(current_delimiter)
-    print(f"current_delimiter{current_delimiter}, temp_left: {temp_left}")
-    print(f"left_most: {left_most}")
-    print(f"text:{text}")
+    # print(f"current_delimiter{current_delimiter}, temp_left: {temp_left}")
+    # print(f"left_most: {left_most}")
+    # print(f"text:{text}")
 
     if left_most == -1 or left_most > temp_left:
       left_most = temp_left

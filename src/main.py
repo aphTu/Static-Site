@@ -1,6 +1,7 @@
-from textnode import *
-from htmlnode import HTMLNode, LeafNode
-from delimiter import split_nodes_delimiter, parse_inline
+from utilities.textnode import *
+from utilities.htmlnode import HTMLNode, LeafNode
+from utilities.delimiter import split_nodes_delimiter, parse_inline
+from utilities.extract_markdown_images import extract_markdown_images
 def main():
     print("hello world")
     # link = TextType.LINK
@@ -9,15 +10,18 @@ def main():
     # node = LeafNode("p", "Hello, world!")
     # print(node.to_html())
 
-    delimiters = [
-      ("**", TextType.BOLD),
-      ("_", TextType.ITALIC),
-      ("`", TextType.CODE),
-    ]
+    # delimiters = [
+    #   ("**", TextType.BOLD),
+    #   ("_", TextType.ITALIC),
+    #   ("`", TextType.CODE),
+    # ]
 
-    node = InlineNode(TextType.TEXT, content="This is an _italic and **bold** word_")
-    tree = parse_inline(node, delimiters)
-    print(tree)
+    # node = InlineNode(TextType.TEXT, content="This is an _italic and **bold** word_")
+    # tree = parse_inline(node, delimiters)
+    # print(tree)
+
+text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+print(extract_markdown_images(text))
 
 if __name__ == "__main__":
     main()

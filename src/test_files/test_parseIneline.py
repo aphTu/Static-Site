@@ -1,4 +1,4 @@
-from delimiter import *
+from src.utilities.delimiter import *
 
 import unittest
 class TestParseInline(unittest.TestCase):
