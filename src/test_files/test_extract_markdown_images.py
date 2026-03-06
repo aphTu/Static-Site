@@ -34,3 +34,26 @@ class TestExtractMarkDownImage(unittest.TestCase):
     text = "![obi wan](https://i.imgur.com/aKaOqIh.gif) says hello"
     expected = [("obi wan", "https://i.imgur.com/aKaOqIh.gif")]
     self.assertEqual(expected, extract_markdown_images(text))
+  
+  def test_extracting_image_at_end(self):
+    text = "This is ![obi wan](https://i.imgur.com/aKaOqIh.gif)"
+    expected = [("obi wan", "https://i.imgur.com/aKaOqIh.gif")]
+    self.assertEqual(expected, extract_markdown_images(text))
+  
+  def test_missing_parenthese(self):
+    text = "This is ![obi wan](https://i.imgur.com/aKaOqIh.gif"
+    expected = []
+    
+    self.assertEqual(extract_markdown_images(text), expected)
+
+  def test_missing_bracket(self):
+    text = "This is ![obi wan(https://i.imgur.com/aKaOqIh.gif)"
+    expected = []
+    
+    self.assertEqual(extract_markdown_images(text), expected)
+
+  def test_missing_exclimation_mark(self):
+    text = "This is [obi wan](https://i.imgur.com/aKaOqIh.gif)"
+    expected = []
+    
+    self.assertEqual(extract_markdown_images(text), expected)
