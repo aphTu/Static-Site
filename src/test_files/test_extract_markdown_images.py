@@ -16,14 +16,15 @@ class TestExtractMarkDownImage(unittest.TestCase):
   
   def test_extracting_image_with_altText(self):
     text = "This is a text with a (image link but no alt text)"
-
-    with self.assertRaises(Exception):
-      extract_markdown_images(text)
+    expected = []
+    self.assertEqual(expected, extract_markdown_images(text))
+    
   
   def test_extracting_image_with_no_url(self):
     text = "This is a text with a ![no url]"
-    with self.assertRaises(Exception):
-      extract_markdown_images(text)
+    expected = []
+
+    self.assertEqual(expected, extract_markdown_images(text))
 
   def test_extracting_a_normal_text(self):
     text = "This is a text with no image"

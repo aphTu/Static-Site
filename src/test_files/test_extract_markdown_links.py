@@ -36,15 +36,18 @@ class TestExtractMarkdownLinks(unittest.TestCase):
   
   def test_missing_parenthese(self):
     text = "[Boot dev](https://www.boot.dev and [The Odin Project](https://www.boot.dev) are good learning resources"
-    with self.assertRaises(Exception):
-      extract_markdown_links(text)
+    expected = [('The Odin Project', "https://www.boot.dev")]
+
+    self.assertEqual(expected, extract_markdown_links(text))
 
   def test_missing_brackets(self):
     text = "[Boot dev(https://www.boot.dev) and [The Odin Project(https://www.boot.dev)"
-    with self.assertRaises(Exception):
-      extract_markdown_links(text)
+    expected = []
+
+    self.assertEqual(expected, extract_markdown_links(text))
+   
   
   def test_adding_an_image_instead_of_link(self):
     text = "![Boot dev](https://www.boot.dev)"
-    with self.assertRaises(Exception):
-      extract_markdown_links(text)
+    expected = []
+    self.assertEqual(expected, extract_markdown_links(text))
