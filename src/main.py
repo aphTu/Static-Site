@@ -1,7 +1,7 @@
 from utilities.textnode import *
 from utilities.htmlnode import HTMLNode, LeafNode
 from utilities.delimiter import split_nodes_delimiter, parse_inline
-from utilities.extract_markdown_images import extract_markdown_images
+from utilities.markdown_link import split_nodes_links
 def main():
     print("hello world")
     # link = TextType.LINK
@@ -20,8 +20,9 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
-text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
-print(extract_markdown_images(text))
+    text = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
+    TextType.TEXT)
+    print(split_nodes_links([text]))
 
 if __name__ == "__main__":
     main()
