@@ -1,4 +1,9 @@
 from enum import Enum
+from src.utilities.htmlnode import *
+from src.utilities.textnode import *
+from src.utilities.delimiter import split_nodes_delimiter
+from src.utilities.markdown_images import *
+from src.utilities.markdown_link import *
 
 class BlockType(Enum):
   PARAGRAPH = "paragraph"
@@ -97,4 +102,30 @@ def block_to_block_type(block):
   #       type_of_block = BlockType.PARAGRAPH
   return type_of_block
 
-  
+def markdown_to_html_node(markdown):
+  #* convert an entire markdown to an parent html node, with nested elements
+
+  blocks = markdowns_to_blocks(markdown)
+  for block in blocks:
+    type_of_block = block_to_block_type(block)
+    tag  = None
+    
+    if type_of_block == BlockType.HEADING:
+      if(block.startswith("#")):
+        tag = "h1"
+      elif block.startswith("##"):
+        tag = "h2"
+      elif block.startswith("###"):
+        tag = "h3"
+      elif block.startswith("####"):
+        tag = "h4"
+      elif block.startswith("#####"):
+        tag = "h5"
+      else:
+        tag = "h6"
+    
+    if type_of_block == BlockType.PARAGRAPH:
+      tag = "p"
+      split_nodes_delimiter()
+    LeafNode(tag=tag, )
+    
