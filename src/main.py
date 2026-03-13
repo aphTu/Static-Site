@@ -1,7 +1,6 @@
-from utilities.textnode import *
+# from utilities.textnode import TextNode,TextType
 from utilities.htmlnode import HTMLNode, LeafNode
-from utilities.delimiter import split_nodes_delimiter, parse_inline
-from utilities.markdown_link import split_nodes_links
+from utilities.block_markdown import markdowns_to_blocks
 def main():
     print("hello world")
     # link = TextType.LINK
@@ -20,9 +19,18 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
-    text = TextNode("This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-    TextType.TEXT)
-    print(split_nodes_links([text]))
+    text = """
+# This is a heading
+
+
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+    print(markdowns_to_blocks(text))
 
 if __name__ == "__main__":
     main()
