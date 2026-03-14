@@ -1,5 +1,5 @@
 import re
-from src.utilities.textnode import TextNode, TextType
+from utilities.textnode import TextNode, TextType
 def extract_markdown_links(text):
   # take in a string that has markdown links
   # return list of tuples, with anchor text and URLS

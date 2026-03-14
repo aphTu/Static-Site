@@ -1,7 +1,7 @@
-from src.utilities.markdown_images import split_nodes_images
-from src.utilities.textnode import TextNode,TextType
-from src.utilities.markdown_link import split_nodes_links
-from src.utilities.delimiter import split_nodes_delimiter
+from utilities.markdown_images import split_nodes_images
+from utilities.textnode import TextNode,TextType
+from utilities.markdown_link import split_nodes_links
+from utilities.delimiter import split_nodes_delimiter
 
 def text_to_textnode(text):
   nodes = [TextNode(text,TextType.TEXT)]

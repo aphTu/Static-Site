@@ -1,5 +1,5 @@
-from src.utilities.htmlnode import *
-from src.utilities.textnode import *
+from utilities.htmlnode import *
+from utilities.textnode import *
 import copy
 
 

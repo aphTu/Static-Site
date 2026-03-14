@@ -1,4 +1,4 @@
-from src.utilities.block_markdown import markdowns_to_blocks
+from utilities.block_markdown import markdowns_to_blocks
 
 import unittest
 

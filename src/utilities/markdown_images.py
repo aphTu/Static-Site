@@ -1,5 +1,5 @@
 import re
-from src.utilities.textnode import TextType,TextNode
+from utilities.textnode import TextType,TextNode
 def extract_markdown_images(text):
   ## takes raw markdown images 
   ## return a list of tuples, with an alt text and url for the markdown image

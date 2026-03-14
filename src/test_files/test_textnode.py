@@ -1,6 +1,6 @@
 import unittest
 import sys
-from src.utilities.textnode import TextNode, TextType, text_node_to_html_node
+from utilities.textnode import TextNode, TextType, text_node_to_html_node
 
 
 class TestTextNode(unittest.TestCase):

@@ -1,5 +1,5 @@
 from enum import Enum
-from src.utilities.htmlnode import *
+from utilities.htmlnode import *
 
 class TextType(Enum):
     TEXT = "text"

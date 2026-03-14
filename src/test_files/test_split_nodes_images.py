@@ -1,6 +1,6 @@
-from src.utilities.markdown_images import split_nodes_images
+from utilities.markdown_images import split_nodes_images
 import unittest
-from src.utilities.textnode import TextNode, TextType
+from utilities.textnode import TextNode, TextType
 class TestSplitMarkdownLinks(unittest.TestCase):
   def test_splitting_node_with_one_link(self):
     node = TextNode("This is text with an image ![to boot dev](https://www.boot.dev)", TextType.TEXT)

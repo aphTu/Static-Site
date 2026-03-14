@@ -1,9 +1,10 @@
 from enum import Enum
-from src.utilities.htmlnode import *
-from src.utilities.textnode import *
-from src.utilities.delimiter import split_nodes_delimiter
-from src.utilities.markdown_images import *
-from src.utilities.markdown_link import *
+from utilities.htmlnode import HTMLNode, ParentNode,LeafNode
+from utilities.textnode import TextNode, TextType, text_node_to_html_node
+from utilities.delimiter import split_nodes_delimiter
+from utilities.markdown_images import extract_markdown_images,split_nodes_images
+from utilities.markdown_link import extract_markdown_links, split_nodes_links
+from utilities.text_to_textnode import text_to_textnode
 
 class BlockType(Enum):
   PARAGRAPH = "paragraph"
@@ -104,28 +105,70 @@ def block_to_block_type(block):
 
 def markdown_to_html_node(markdown):
   #* convert an entire markdown to an parent html node, with nested elements
-
+  html_nodes = []
   blocks = markdowns_to_blocks(markdown)
+  # print(f"blocks:{blocks}")
   for block in blocks:
     type_of_block = block_to_block_type(block)
-    tag  = None
+    match type_of_block:
+      case BlockType.HEADING:
+        html_nodes.append(heading_block_to_html_node(block))
+      case BlockType.PARAGRAPH:
+        html_nodes.append(paragraph_block_to_html_node(block))
+      case BlockType.CODE:
+        html_nodes.append(code_block_to_html_node(block))
+  # div_parent  = ParentNode("div", html_nodes)
+  # print(div_parent.to_html())
+  
+
     
-    if type_of_block == BlockType.HEADING:
-      if(block.startswith("#")):
-        tag = "h1"
-      elif block.startswith("##"):
-        tag = "h2"
-      elif block.startswith("###"):
-        tag = "h3"
-      elif block.startswith("####"):
-        tag = "h4"
-      elif block.startswith("#####"):
-        tag = "h5"
-      else:
-        tag = "h6"
-    
-    if type_of_block == BlockType.PARAGRAPH:
-      tag = "p"
-      split_nodes_delimiter()
-    LeafNode(tag=tag, )
-    
+
+def heading_block_to_html_node(block):
+  tag  = None
+  heading_level = 0
+  if(block.startswith("#")):
+    tag = "h1"
+  elif block.startswith("##"):
+    tag = "h2"
+    heading_level = 1
+  elif block.startswith("###"):
+    tag = "h3"
+    heading_level = 2
+
+  elif block.startswith("####"):
+    tag = "h4"
+    heading_level = 3
+
+  elif block.startswith("#####"):
+    tag = "h5"
+    heading_level = 4
+
+  else:
+    tag = "h6"
+    heading_level = 5
+
+  if tag is None:
+    raise Exception("Error with heading block")
+  block = block.split(" ")
+  del block[:heading_level+1]
+  " ".join(block)
+  print(block)  
+  
+
+def paragraph_block_to_html_node(block):
+  tag = "p"
+  block = block.split("\n")
+  value = text_to_textnode(" ".join(block))
+  # print(f"value: {value}")
+  children=[]
+  for node in value:
+    # print(node)
+    children.append(text_node_to_html_node(node))
+  parent_node = ParentNode(tag, children=children)
+  # print(f"ParentNode: {parent_node}")
+  # print(f"ParentNode to html tag: {parent_node.to_html()}")
+  return parent_node
+
+def code_block_to_html_node(block):
+  pass
+  

@@ -1,4 +1,4 @@
-from src.utilities.block_markdown import block_to_block_type, BlockType, markdowns_to_blocks
+from utilities.block_markdown import block_to_block_type, BlockType, markdowns_to_blocks
 import unittest
 
 class TestBlockToBlockType(unittest.TestCase):
