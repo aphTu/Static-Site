@@ -1,6 +1,6 @@
-from utilities.text_to_textnode import text_to_textnode
+from src.utilities.text_to_textnode import text_to_textnode
 import unittest
-from utilities.textnode import TextNode, TextType
+from src.utilities.textnode import TextNode, TextType
 
 class TestTextToTextNode(unittest.TestCase):
   def test_splitting_only_bold(self):

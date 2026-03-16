@@ -1,6 +1,6 @@
 import unittest
 
-from utilities.markdown_link import extract_markdown_links
+from src.utilities.delimiter import extract_markdown_links
 
 class TestExtractMarkdownLinks(unittest.TestCase):
   def test_extract_one_link(self):

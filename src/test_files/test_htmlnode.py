@@ -1,4 +1,4 @@
-from utilities.htmlnode import HTMLNode, LeafNode, ParentNode
+from src.utilities.htmlnode import HTMLNode, LeafNode, ParentNode
 import unittest
 class TestHTMLNode(unittest.TestCase):
   def test_props_to_html_Equal(self):

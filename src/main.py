@@ -1,6 +1,6 @@
-# from utilities.textnode import TextNode,TextType
-from utilities.htmlnode import HTMLNode, LeafNode
-from utilities.block_markdown import markdown_to_html_node
+# from src.utilities.textnode import TextNode,TextType
+from src.utilities.htmlnode import HTMLNode, LeafNode
+from src.utilities.block_markdown import markdown_to_html_node
 def main():
     print("hello world")
     # link = TextType.LINK
