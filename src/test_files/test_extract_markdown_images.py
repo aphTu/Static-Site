@@ -1,4 +1,4 @@
-from src.utilities.markdown_images import extract_markdown_images
+from src.utilities.delimiter import extract_markdown_images
 import unittest
 
 class TestExtractMarkDownImage(unittest.TestCase):

@@ -1,4 +1,4 @@
-from src.utilities.markdown_images import split_nodes_images
+from src.utilities.delimiter import split_nodes_images
 from src.utilities.textnode import TextNode,TextType
 from src.utilities.delimiter import split_nodes_delimiter, extract_markdown_links, split_nodes_links
 

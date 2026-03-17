@@ -2,7 +2,7 @@ from enum import Enum
 from src.utilities.htmlnode import HTMLNode, ParentNode,LeafNode
 from src.utilities.textnode import TextNode, TextType, text_node_to_html_node
 from src.utilities.delimiter import split_nodes_delimiter
-from src.utilities.markdown_images import extract_markdown_images,split_nodes_images
+from src.utilities.delimiter import extract_markdown_images,split_nodes_images
 from src.utilities.delimiter import extract_markdown_links, split_nodes_links
 from src.utilities.text_to_textnode import text_to_textnode
 
