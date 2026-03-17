@@ -29,7 +29,7 @@ def main():
 # This is another paragraph with _italic_ text and `code` here
 
 # """
-# markdown_to_html_node(md)
+markdown_to_html_node("")
 
 if __name__ == "__main__":
     main()
