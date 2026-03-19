@@ -117,8 +117,8 @@ def markdown_to_html_node(markdown):
         html_nodes.append(paragraph_block_to_html_node(block))
       case BlockType.CODE:
         html_nodes.append(code_block_to_html_node(block))
-  # div_parent  = ParentNode("div", html_nodes)
-  # print(div_parent.to_html())
+  div_parent  = ParentNode("div", html_nodes)
+  print(div_parent.to_html())
   
 
     
@@ -151,9 +151,13 @@ def heading_block_to_html_node(block):
     raise Exception("Error with heading block")
   block = block.split(" ")
   del block[:heading_level+1]
-  " ".join(block)
-  print(block)  
-  
+  value = text_to_textnode(" ".join(block))
+  children = []
+  for node in value: 
+    print(node)
+    children.append(text_node_to_html_node(node))
+  parent_node = ParentNode(tag, children=children)
+  return parent_node
 
 def paragraph_block_to_html_node(block):
   tag = "p"
