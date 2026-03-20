@@ -36,6 +36,10 @@ This is another paragraph with _italic_ text and `code` here
 
 > quote 1
 > quote 2
+
+- hey
+- hy2
+- **bruh**
 """
 markdown_to_html_node(md)
 
