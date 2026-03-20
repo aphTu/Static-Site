@@ -121,8 +121,10 @@ def markdown_to_html_node(markdown):
         html_nodes.append(quote_block_to_html_node(block))
       case BlockType.UNORDERED_LIST:
         html_nodes.append(unordered_block_to_html_node(block))
-  div_parent  = ParentNode("div", html_nodes)
-  print(div_parent.to_html(), sep="-----")
+      case BlockType.ORDERED_LIST:
+        html_nodes.append(ordered_block_to_html_node(block))
+  # div_parent  = ParentNode("div", html_nodes)
+  # print(div_parent.to_html(), sep="-----")
   
 
     
@@ -211,14 +213,34 @@ def unordered_block_to_html_node(block):
   for  line in block:
     if line.startswith("- "):
       line = line[2:]
-    value.extend(text_to_textnode(line))
+    value.append(text_to_textnode(line))
+  print(value)
+  children = []
+  for _list in value:
+    node = []
+    for element in _list:
+      node.append(text_node_to_html_node(element))
+    children.append(ParentNode("li",node))
+
+  parent_node = ParentNode(tag, children=children)
+  # print(parent_node.to_html())
+  return parent_node
+
+def ordered_block_to_html_node(block):
+  tag = "ol"
+  block = block.split("\n")
+  value = []
+  for i in range(0, len(block)):
+    line = block[i]
+    if line.startswith(f"{i+1}. "):
+      line = line[3:]
+      value.extend(text_to_textnode(line))
+  # print(f"value: {value}")
 
   children = []
-  for element in value:
+  for element in value: 
     node = text_node_to_html_node(element)
-    children.append(ParentNode("li",[node]))
+    children.append(ParentNode("li", [node]))
 
   parent_node = ParentNode(tag, children=children)
   return parent_node
-
-  
