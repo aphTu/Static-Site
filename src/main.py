@@ -36,12 +36,15 @@ This is another paragraph with _italic_ text and `code` here
 
 > quote 1
 > quote 2
+"""
 
+md2 = """
 - hey
-- hy2
-- **bruh**
+- hey 2
+- hey 3 **bruh**
 """
 markdown_to_html_node(md)
+markdown_to_html_node(md2)
 
 if __name__ == "__main__":
     main()

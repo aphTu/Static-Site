@@ -121,8 +121,8 @@ def markdown_to_html_node(markdown):
         html_nodes.append(quote_block_to_html_node(block))
       case BlockType.UNORDERED_LIST:
         html_nodes.append(unordered_block_to_html_node(block))
-  # div_parent  = ParentNode("div", html_nodes)
-  # print(div_parent.to_html(), sep="-----")
+  div_parent  = ParentNode("div", html_nodes)
+  print(div_parent.to_html(), sep="-----")
   
 
     
@@ -212,10 +212,13 @@ def unordered_block_to_html_node(block):
     if line.startswith("- "):
       line = line[2:]
     value.extend(text_to_textnode(line))
-  print(value)
 
+  children = []
+  for element in value:
+    node = text_node_to_html_node(element)
+    children.append(ParentNode("li",[node]))
+
+  parent_node = ParentNode(tag, children=children)
+  return parent_node
 
   
-  # children = []
-  # for node in value:
-  #   children.append(text_node_to_html_node(node))
