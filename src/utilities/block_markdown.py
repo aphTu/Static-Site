@@ -117,6 +117,8 @@ def markdown_to_html_node(markdown):
         html_nodes.append(paragraph_block_to_html_node(block))
       case BlockType.CODE:
         html_nodes.append(code_block_to_html_node(block))
+      case BlockType.QUOTE:
+        html_nodes.append(quote_block_to_html_node(block))
   div_parent  = ParentNode("div", html_nodes)
   print(div_parent.to_html(), sep="-----")
   
@@ -185,3 +187,17 @@ def code_block_to_html_node(block):
   pre_node = ParentNode("pre", children=[code_node])
   # print(f"pre_node: {pre_node}")
   return pre_node  
+
+def quote_block_to_html_node(block):
+  tag = "blockquote"
+  block = block.split("\n")
+  for i in range(0,len(block)):
+    line = block[i]
+    if line.startswith(">"):
+      block[i] = line[2:]
+  value = text_to_textnode("\n".join(block))
+  children = []
+  for node in value:
+    children.append(text_node_to_html_node(node))
+  parent_node = ParentNode(tag, children=children)
+  return parent_node

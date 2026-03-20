@@ -33,8 +33,11 @@ the **same** even with inline stuff
 
 This is another paragraph with _italic_ text and `code` here
 
+
+> quote 1
+> quote 2
 """
-markdown_to_html_node(md);
+markdown_to_html_node(md)
 
 if __name__ == "__main__":
     main()
