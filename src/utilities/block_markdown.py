@@ -118,7 +118,7 @@ def markdown_to_html_node(markdown):
       case BlockType.CODE:
         html_nodes.append(code_block_to_html_node(block))
   div_parent  = ParentNode("div", html_nodes)
-  print(div_parent.to_html())
+  print(div_parent.to_html(), sep="-----")
   
 
     
@@ -154,7 +154,7 @@ def heading_block_to_html_node(block):
   value = text_to_textnode(" ".join(block))
   children = []
   for node in value: 
-    print(node)
+    # print(node)
     children.append(text_node_to_html_node(node))
   parent_node = ParentNode(tag, children=children)
   return parent_node
@@ -174,5 +174,14 @@ def paragraph_block_to_html_node(block):
   return parent_node
 
 def code_block_to_html_node(block):
-  pass
-  
+  tag = "code" 
+  block = block.split("\n")
+  # print(repr(block))
+  del block[0]
+  del block[-1]
+  block = "\n".join(block)
+  code_node = text_node_to_html_node(TextNode(block,TextType.CODE))
+  # print("this is the issue")
+  pre_node = ParentNode("pre", children=[code_node])
+  # print(f"pre_node: {pre_node}")
+  return pre_node  
