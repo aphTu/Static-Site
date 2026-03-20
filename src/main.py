@@ -43,6 +43,9 @@ md2 = """
 - hey 2
 - hey 3 **bruh**
 
+1. hello 
+2. _hello_ italicize
+3. this is **bold** and _italicize_ hello
 """
 markdown_to_html_node(md)
 markdown_to_html_node(md2)
