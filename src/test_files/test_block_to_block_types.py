@@ -139,7 +139,6 @@ this one does not have a quote at the beginning
     self.assertEqual(expected, block_to_block_type(block))
 
   def test_ordered_list(self):
-    print("\n\nFAILLING ONE")
     md = """
 1. print("hello world")
 2. print("Welcome to Boot.Dev")

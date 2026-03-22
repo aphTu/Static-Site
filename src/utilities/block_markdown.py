@@ -124,39 +124,33 @@ def markdown_to_html_node(markdown):
       case BlockType.ORDERED_LIST:
         html_nodes.append(ordered_block_to_html_node(block))
   div_parent  = ParentNode("div", html_nodes)
-  print(div_parent.to_html(), sep="-----")
+  # print(div_parent.to_html(), sep="-----")
+  return div_parent
   
 
     
 
 def heading_block_to_html_node(block):
-  tag  = None
-  heading_level = 0
-  if(block.startswith("#")):
-    tag = "h1"
-  elif block.startswith("##"):
-    tag = "h2"
-    heading_level = 1
-  elif block.startswith("###"):
-    tag = "h3"
-    heading_level = 2
+  tag  = "h1"
 
-  elif block.startswith("####"):
-    tag = "h4"
-    heading_level = 3
-
+  # print(f"block: {block}")
+  if block.startswith("######"):
+    tag = "h6"
   elif block.startswith("#####"):
     tag = "h5"
-    heading_level = 4
-
-  else:
-    tag = "h6"
-    heading_level = 5
+  elif block.startswith("####"):
+    tag = "h4"
+  elif block.startswith("###"):
+    tag = "h3"
+  elif block.startswith("##"):
+    tag = "h2"
 
   if tag is None:
     raise Exception("Error with heading block")
   block = block.split(" ")
-  del block[:heading_level+1]
+  # print(f"block before del: {block}")
+  del block[:1]
+  # print(f"block after del: {block}")
   value = text_to_textnode(" ".join(block))
   children = []
   for node in value: 
@@ -181,11 +175,13 @@ def paragraph_block_to_html_node(block):
 
 def code_block_to_html_node(block):
   tag = "code" 
-  block = block.split("\n")
   # print(repr(block))
-  del block[0]
-  del block[-1]
-  block = "\n".join(block)
+  block = block[4:-3]
+  # block = block.split("\n")
+  # print(repr(block))
+  # del block[0]
+  # del block[-1]
+  # block = "\n".join(block)
   code_node = text_node_to_html_node(TextNode(block,TextType.CODE))
   # print("this is the issue")
   pre_node = ParentNode("pre", children=[code_node])
@@ -195,15 +191,23 @@ def code_block_to_html_node(block):
 def quote_block_to_html_node(block):
   tag = "blockquote"
   block = block.split("\n")
+  print(f"block inside quote{repr(block)}")
+  value = []
   for i in range(0,len(block)):
     line = block[i]
-    if line.startswith(">"):
-      block[i] = line[2:]
-  value = text_to_textnode("\n".join(block))
+    if line.startswith("> "):
+      line = line[2:]
+      # print(f"text_to_textnode(line): {text_to_textnode(line)}")
+      value.append(text_to_textnode(line))
+    elif line.startswith(">"):
+      line = line[1:]
+      value.append(text_to_textnode(line))
+  print(f"value: {value}")
   children = []
-  for node in value:
-    children.append(text_node_to_html_node(node))
-  parent_node = ParentNode(tag, children=children)
+  for _list in value:
+    for node in _list:
+      children.append(text_node_to_html_node(node))
+    parent_node=ParentNode(tag, children=children)
   return parent_node
 
 def unordered_block_to_html_node(block):
