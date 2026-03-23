@@ -136,7 +136,9 @@ def split_nodes_links(old_nodes):
       # print("\n")
       if(len(splitted_text)!=2):
         raise ValueError("invalid markdown, image section is not closed")
-      if(splitted_text[0] != ""):
+      if(splitted_text[0] != "" and splitted_text[0]!= " "):
+        # print(f"how tf {splitted_text[0] == " "}")
+        # print(f"\n\n\n\n wtf: {splitted_text[0]}")
         nodes.append(TextNode(splitted_text[0], TextType.TEXT))
       # print(f"bruh1 {anchor_text}")
       nodes.append(TextNode(anchor_text,TextType.LINK, url=link))
@@ -179,7 +181,7 @@ def split_nodes_images(old_nodes):
       # print(f"inside function: {splitted_text}")
       if(len(splitted_text)!=2):
         raise ValueError("invalid markdown, image section is not closed")
-      if(splitted_text[0] != ""):
+      if(splitted_text[0] != "" and splitted_text[0]!= " "):
         nodes.append(TextNode(splitted_text[0], TextType.TEXT))
       # print(f"bruh1 {anchor_text}")
       nodes.append(TextNode(anchor_text,TextType.IMAGES, url=image))

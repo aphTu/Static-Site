@@ -191,24 +191,23 @@ def code_block_to_html_node(block):
 def quote_block_to_html_node(block):
   tag = "blockquote"
   block = block.split("\n")
-  # print(f"block inside quote{repr(block)}")
-  value = []
-  for i in range(0,len(block)):
+
+  for i in range(0, len(block)):
     line = block[i]
     if line.startswith("> "):
-      line = line[2:]
-      # print(f"text_to_textnode(line): {text_to_textnode(line)}")
-      value.append(text_to_textnode(line))
+      block[i] = line[2:].strip()
     elif line.startswith(">"):
-      line = line[1:]
-      value.append(text_to_textnode(line))
-  # print(f"value: {value}")
+      block[i] = line[1:].strip()
+  block = " ".join(block)
+  # print(f"block inside quote: {repr(block)}")
+  value = text_to_textnode(block)
+  # print(f"\n\nvalue: {value}")
   children = []
-  for _list in value:
-    for node in _list:
+  for node in value:
       children.append(text_node_to_html_node(node))
   parent_node=ParentNode(tag, children=children)
   return parent_node
+
 
 def unordered_block_to_html_node(block):
   tag = "ul"

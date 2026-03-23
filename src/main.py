@@ -20,22 +20,13 @@ def main():
     # print(tree)
 
 md = """
-###### Heading hello sir
-
-This is **bolded** paragraph
-text in a p
-tag here
-
-```
-This is text that _should_ remain
-the **same** even with inline stuff
-```
-
-This is another paragraph with _italic_ text and `code` here
+> Normal Quote
+> **Bold** Quote
+> _Italic_ Quote
+>![image](quote)
+>[link](quote)
 
 
-> quote 1
-> quote 2
 """
 
 md2 = """
@@ -47,8 +38,8 @@ md2 = """
 2. _hello_ italicize
 3. this is **bold** and _italicize_ hello
 """
-markdown_to_html_node(md)
-markdown_to_html_node(md2)
+print(markdown_to_html_node(md))
+# markdown_to_html_node(md2)
 
 if __name__ == "__main__":
     main()

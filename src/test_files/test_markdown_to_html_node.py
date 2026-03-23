@@ -83,6 +83,26 @@ the **same** even with inline stuff
     
         self.assertEqual(html,expected)
 
+    def test_codeblock_multiple(self):
+        md = """
+```
+This is text that _should_ remain
+the **same** even with inline stuff
+```
+
+```
+**Bold code block, it should not change anything
+second line of code block**
+```
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n")
+        expected ="<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre><pre><code>**Bold code block, it should not change anything\nsecond line of code block**\n</code></pre></div>"
+        # print(f"expected: {repr(expected)}")
+    
+        self.assertEqual(html,expected)
     
     def test_quoteblock(self):
         md = """
@@ -97,7 +117,30 @@ the **same** even with inline stuff
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"\n\nhtml: {repr(html)}\n\n")
-        expected = "<div><blockquote>Normal Quote<b>Bold</b> Quote<i>Italic</i> Quote<img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote></div>"
+        expected = "<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote></div>"
+        # print(f"expected: {repr(expected)}")
+    
+        self.assertEqual(html,expected)
+
+    def test_quoteblock_multiple(self):
+        md = """
+> Normal Quote
+> **Bold** Quote
+> _Italic_ Quote
+>![image](quote)
+>[link](quote)
+
+>Second  
+>Quote 
+>block
+>to
+>test 
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = "<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote><blockquote>Second Quote block to test</blockquote></div>"
         # print(f"expected: {repr(expected)}")
     
         self.assertEqual(html,expected)
