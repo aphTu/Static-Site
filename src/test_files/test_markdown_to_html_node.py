@@ -144,3 +144,20 @@ second line of code block**
         # print(f"expected: {repr(expected)}")
     
         self.assertEqual(html,expected)
+
+    def test_unordered_list(self):
+        md = """
+- unordered **bold**
+- unordered _italic_
+- unordered `code`
+- ![unordered](image)
+- [unordered](link)
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = "<div><ul><li>unordered <b>bold</b></li><li>unordered <i>italic</i></li><li>unordered <code>code</code></li><li><img src=\"image\" alt=\"unordered\"></img></li><li><a href=\"link\">unordered</a></li></ul></div>"
+        # print(f"expected: {repr(expected)}")
+    
+        self.assertEqual(html,expected)
