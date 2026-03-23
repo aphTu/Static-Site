@@ -96,8 +96,8 @@ the **same** even with inline stuff
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        print(f"html: {repr(html)}")
-        expected = "<div><blockquote>Normal Quote </blockquote><blockquote><b>Bold</b> Quote</blockquote><blockquote><i>Italic</i> Quote</blockquote><blockquote><img src=\"quote\" alt=\"image\"></img></blockquote><blockquote><a href=\"quote\"> link</a></blockquote></div>"
-        print(f"expected: {repr(expected)}")
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = "<div><blockquote>Normal Quote<b>Bold</b> Quote<i>Italic</i> Quote<img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote></div>"
+        # print(f"expected: {repr(expected)}")
     
         self.assertEqual(html,expected)

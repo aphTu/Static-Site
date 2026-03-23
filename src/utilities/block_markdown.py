@@ -191,7 +191,7 @@ def code_block_to_html_node(block):
 def quote_block_to_html_node(block):
   tag = "blockquote"
   block = block.split("\n")
-  print(f"block inside quote{repr(block)}")
+  # print(f"block inside quote{repr(block)}")
   value = []
   for i in range(0,len(block)):
     line = block[i]
@@ -202,12 +202,12 @@ def quote_block_to_html_node(block):
     elif line.startswith(">"):
       line = line[1:]
       value.append(text_to_textnode(line))
-  print(f"value: {value}")
+  # print(f"value: {value}")
   children = []
   for _list in value:
     for node in _list:
       children.append(text_node_to_html_node(node))
-    parent_node=ParentNode(tag, children=children)
+  parent_node=ParentNode(tag, children=children)
   return parent_node
 
 def unordered_block_to_html_node(block):

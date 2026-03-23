@@ -191,6 +191,5 @@ def split_nodes_images(old_nodes):
     # print(f"nodes currently: {nodes}")
     # print("\nNext One\n")
 
-  # print(f"final nodes: {nodes}")
   return nodes
   
