@@ -1,8 +1,11 @@
 from src.utilities.block_markdown import markdown_to_html_node
 import unittest
 
+
 class TestMarkdownToHTMLNode(unittest.TestCase):
     def test_paragraphs(self):
+        self.maxDiff = None
+
         md = """
 This is **bolded** paragraph
 text in a p
@@ -17,7 +20,6 @@ This is another paragraph with _italic_ text and `code` here
         expected = "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>"
         self.assertEqual(expected, html)
 
-    
     def test_bold_paragraph(self):
         md = """
 **This is bolded paragraph
@@ -47,8 +49,8 @@ This is another paragraph with _italic_ text and `code` here
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"html: {html}")
-        expected =  "<div><h1>Hello Heading h1</h1><h2>Hello Heading h2</h2><h4>Hello Heading h4</h4><h6>Hello Heading h6</h6></div>"
-        self.assertEqual(expected, html)    
+        expected = "<div><h1>Hello Heading h1</h1><h2>Hello Heading h2</h2><h4>Hello Heading h4</h4><h6>Hello Heading h6</h6></div>"
+        self.assertEqual(expected, html)
 
     def test_heading_inline_markdown(self):
         md = """
@@ -64,8 +66,8 @@ This is another paragraph with _italic_ text and `code` here
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"html: {html}")
-        expected =  "<div><h1><b>Hello</b> Heading h1</h1><h2><i>Hello</i> Heading h2</h2><h4><code>Hello</code> Heading h4</h4><h6>Hello <img src=\"h6\" alt=\"Heading\"></img></h6></div>"
-        self.assertEqual(expected, html)  
+        expected = '<div><h1><b>Hello</b> Heading h1</h1><h2><i>Hello</i> Heading h2</h2><h4><code>Hello</code> Heading h4</h4><h6>Hello <img src="h6" alt="Heading"></img></h6></div>'
+        self.assertEqual(expected, html)
 
     def test_codeblock(self):
         md = """
@@ -78,10 +80,10 @@ the **same** even with inline stuff
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"html: {repr(html)}")
-        expected ="<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>"
+        expected = "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>"
         # print(f"expected: {repr(expected)}")
-    
-        self.assertEqual(html,expected)
+
+        self.assertEqual(html, expected)
 
     def test_codeblock_multiple(self):
         md = """
@@ -99,11 +101,11 @@ second line of code block**
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"\n\nhtml: {repr(html)}\n")
-        expected ="<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre><pre><code>**Bold code block, it should not change anything\nsecond line of code block**\n</code></pre></div>"
+        expected = "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre><pre><code>**Bold code block, it should not change anything\nsecond line of code block**\n</code></pre></div>"
         # print(f"expected: {repr(expected)}")
-    
-        self.assertEqual(html,expected)
-    
+
+        self.assertEqual(html, expected)
+
     def test_quoteblock(self):
         md = """
 > Normal Quote
@@ -117,10 +119,10 @@ second line of code block**
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"\n\nhtml: {repr(html)}\n\n")
-        expected = "<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote></div>"
+        expected = '<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src="quote" alt="image"></img><a href="quote">link</a></blockquote></div>'
         # print(f"expected: {repr(expected)}")
-    
-        self.assertEqual(html,expected)
+
+        self.assertEqual(html, expected)
 
     def test_quoteblock_multiple(self):
         md = """
@@ -140,10 +142,10 @@ second line of code block**
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"\n\nhtml: {repr(html)}\n\n")
-        expected = "<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src=\"quote\" alt=\"image\"></img><a href=\"quote\">link</a></blockquote><blockquote>Second Quote block to test</blockquote></div>"
+        expected = '<div><blockquote>Normal Quote <b>Bold</b> Quote <i>Italic</i> Quote <img src="quote" alt="image"></img><a href="quote">link</a></blockquote><blockquote>Second Quote block to test</blockquote></div>'
         # print(f"expected: {repr(expected)}")
-    
-        self.assertEqual(html,expected)
+
+        self.assertEqual(html, expected)
 
     def test_unordered_list(self):
         md = """
@@ -157,7 +159,87 @@ second line of code block**
         node = markdown_to_html_node(md)
         html = node.to_html()
         # print(f"\n\nhtml: {repr(html)}\n\n")
-        expected = "<div><ul><li>unordered <b>bold</b></li><li>unordered <i>italic</i></li><li>unordered <code>code</code></li><li><img src=\"image\" alt=\"unordered\"></img></li><li><a href=\"link\">unordered</a></li></ul></div>"
+        expected = '<div><ul><li>unordered <b>bold</b></li><li>unordered <i>italic</i></li><li>unordered <code>code</code></li><li><img src="image" alt="unordered"></img></li><li><a href="link">unordered</a></li></ul></div>'
         # print(f"expected: {repr(expected)}")
-    
-        self.assertEqual(html,expected)
+
+        self.assertEqual(html, expected)
+
+    def test_unordered_list_multiple(self):
+        md = """
+- unordered **bold**
+- unordered _italic_
+- unordered `code`
+- ![unordered](image)
+- [unordered](link)
+
+- second
+- unordered
+- list
+- **test**
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = '<div><ul><li>unordered <b>bold</b></li><li>unordered <i>italic</i></li><li>unordered <code>code</code></li><li><img src="image" alt="unordered"></img></li><li><a href="link">unordered</a></li></ul><ul><li>second</li><li>unordered</li><li>list</li><li><b>test</b></li></ul></div>'
+        # print(f"expected: {repr(expected)}")
+
+        self.assertEqual(html, expected)
+
+    def test_ordered_list(self):
+        md = """
+1. ordered **bold**
+2. ordered _italic_
+3. ordered `code`
+4. ![ordered](image)
+5. [ordered](link)
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = '<div><ol><li>ordered <b>bold</b></li><li>ordered <i>italic</i></li><li>ordered <code>code</code></li><li><img src="image" alt="ordered"></img></li><li><a href="link">ordered</a></li></ol></div>'
+        # print(f"expected: {repr(expected)}")
+
+        self.assertEqual(html, expected)
+
+    def test_ordered_list_multiple(self):
+        md = """
+1. ordered **bold**
+2. ordered _italic_
+3. ordered `code`
+4. ![ordered](image)
+5. [ordered](link)
+
+1. second
+2. ordered
+3. list
+4. **test**
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = '<div><ol><li>ordered <b>bold</b></li><li>ordered <i>italic</i></li><li>ordered <code>code</code></li><li><img src="image" alt="ordered"></img></li><li><a href="link">ordered</a></li></ol><ol><li>second</li><li>ordered</li><li>list</li><li><b>test</b></li></ol></div>'
+        # print(f"expected: {repr(expected)}")
+
+        self.assertEqual(html, expected)
+
+    def test_mixed_blocks(self):
+        md = """
+# Title
+
+A paragraph with **bold** text.
+
+- item one
+- item two
+
+> quoted text
+"""
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        # print(f"\n\nhtml: {repr(html)}\n\n")
+        expected = "<div><h1>Title</h1><p>A paragraph with <b>bold</b> text.</p><ul><li>item one</li><li>item two</li></ul><blockquote>quoted text</blockquote></div>"
+        # print(f"expected: {repr(expected)}")
+
+        self.assertEqual(html, expected)
