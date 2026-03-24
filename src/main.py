@@ -1,6 +1,9 @@
 # from src.utilities.textnode import TextNode,TextType
 from src.utilities.htmlnode import HTMLNode, LeafNode
 from src.utilities.block_markdown import markdown_to_html_node
+from src.utilities.static_to_public import static_to_public
+
+
 def main():
     print("hello world")
     # link = TextType.LINK
@@ -19,26 +22,9 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
-md = """
-> Normal Quote
-> **Bold** Quote
-> _Italic_ Quote
->![image](quote)
->[link](quote)
 
+print(static_to_public(destination="public", source="static"))
 
-"""
-
-md2 = """
-- hey
-- hey 2
-- hey 3 **bruh**
-
-1. hello 
-2. _hello_ italicize
-3. this is **bold** and _italicize_ hello
-"""
-print(markdown_to_html_node(md))
 # markdown_to_html_node(md2)
 
 if __name__ == "__main__":
