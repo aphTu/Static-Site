@@ -2,7 +2,7 @@
 from src.utilities.htmlnode import HTMLNode, LeafNode
 from src.utilities.block_markdown import markdown_to_html_node
 from src.utilities.static_to_public import static_to_public
-
+from src.utilities.generate_page import generate_page
 
 def main():
     print("hello world")
@@ -25,6 +25,7 @@ def main():
 
 print(static_to_public(destination="public", source="static"))
 
+generate_page("content/index.md", "template.html","public/index.html")
 # markdown_to_html_node(md2)
 
 if __name__ == "__main__":

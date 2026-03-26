@@ -20,7 +20,7 @@ class TestTextToTextNode(unittest.TestCase):
     self.assertEqual(expected, text_to_textnode(text))
   
   def test_splitting_only_code(self):
-    print("hello")
+    # print("hello")
     text = "This is `text`"
     expected = [
       TextNode("This is ", TextType.TEXT),
