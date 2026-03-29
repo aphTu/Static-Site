@@ -23,8 +23,8 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
-# basepath= sys.argv[1] if sys.argv[1] else "/"
-basepath = "/"
+basepath= sys.argv[1] if sys.argv[1] else "/"
+# basepath = "/"
 print(static_to_public(destination="docs", source="static"))
 
 generate_pages_recursive("content", "template.html","docs", basepath)
