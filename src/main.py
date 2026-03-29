@@ -23,11 +23,11 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
+# basepath= sys.argv[1] if sys.argv[1] else "/"
+basepath = "/"
+print(static_to_public(destination="docs", source="static"))
 
-print(static_to_public(destination="public", source="static"))
-
-generate_pages_recursive("content", "template.html","public")
+generate_pages_recursive("content", "template.html","docs", basepath)
 # markdown_to_html_node(md2)
-basepath= sys.argv[1] if sys.argv[1] else "/"
 if __name__ == "__main__":
     main()
