@@ -23,7 +23,7 @@ def main():
     # tree = parse_inline(node, delimiters)
     # print(tree)
 
-basepath= sys.argv[1] if len(sys.argv)==2 else "/"
+basepath= sys.argv[1] if len(sys.argv)>=2 else "/"
 # basepath = "/"
 print(static_to_public(destination="docs", source="static"))
 
